@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SuivProj.Models.Interfaces
 {
-    public interface IUser
+    public interface IUtilisateur
     {
         int Id { get; }
         string Trigramme { get; set; }

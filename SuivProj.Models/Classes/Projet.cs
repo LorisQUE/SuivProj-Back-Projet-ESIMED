@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using SuivProj.Models.Interfaces;
 
 namespace SuivProj.Models.Classes
 {
-    class Projet : IProjet
+    public class Projet
     {
-        public int Id { get; }
-
+        public Guid Id { get; init; }
+        [Required]
         public string Nom { get; set; }
-        public IUser ChefProjet { get; set; }
-        public List<IExigence> Exigences { get; set; }
-        public List<ITache> Taches { get; set; }
-        public List<IJalon> Jalons { get; set; }
+        [Required]
+        public Utilisateur ChefProjet { get; set; }
+        public List<Exigence> Exigences { get; set; }
+        public List<Tache> Taches { get; set; }
+        public List<Jalon> Jalons { get; set; }
         public DateTime DateDebut { get; set; }
         public DateTime DateFinTheorique { get; set; }
         public DateTime DateFinReelle { get; set; }

@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using SuivProj.Models.Interfaces;
 
 namespace SuivProj.Models.Classes
 {
-    class Jalon : IJalon
+    public class Jalon
     {
-        public int id { get; }
-
-        public string libelle { get; set; }
-
-        public List<ITache> Taches { get; }
-
-        public bool isLivrable { get; set; }
+        public Guid Id { get; init; }
+        [Required]
+        public string Libelle { get; set; }
+        public List<Tache> Taches { get; }
         public DateTime DateLivraisonPrevue { get; set; }
         public DateTime DateLivraisonReelle { get; set; }
-        public IUser User { get; set; }
-        public DateTime DateTheoriqueCalculer { get; set; }
-        public IProjet Projet { get; set; }
+        [Required]
+        public Utilisateur Utilisateur { get; set; }
+        public DateTime DateFinTheoriqueCalculer { get; set; }
+        [Required]
+        public Projet Projet { get; set; }
+
+        public bool IsLivrable()
+        {
+            return true;
+        }
     }
 }

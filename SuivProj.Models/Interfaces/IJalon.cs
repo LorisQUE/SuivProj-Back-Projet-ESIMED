@@ -10,7 +10,7 @@ namespace SuivProj.Models.Interfaces
         List<ITache> Taches { get; }
         DateTime DateLivraisonPrevue { get; set; }
         DateTime DateLivraisonReelle { get; set; }
-        IUser User { get; set; }
+        IUtilisateur User { get; set; }
         DateTime DateTheoriqueCalculer { get; set; }
         IProjet Projet { get; set; }
         bool IsLivrable();

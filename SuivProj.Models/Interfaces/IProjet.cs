@@ -8,7 +8,7 @@ namespace SuivProj.Models.Interfaces
     {
         int Id { get; }
         string Nom { get; set; }
-        IUser ChefProjet { get; set; }
+        IUtilisateur ChefProjet { get; set; }
 
         List<IExigence> Exigences { get; set; }
         List<ITache> Taches { get; set; }

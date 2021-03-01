@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+## Cache le dossier Migration généré par EntityFramework
+Migrations/

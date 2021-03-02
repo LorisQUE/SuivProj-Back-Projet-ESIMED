@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SuivProj.Dtos;
 using SuivProj.Models.Classes;
 using SuivProj.Models.DataAccess;
 
@@ -23,14 +24,14 @@ namespace SuivProj.Controllers
 
         // GET: api/Utilisateurs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Utilisateur>>> GetUtilisateur()
+        public async Task<ActionResult<IEnumerable<UtilisateurDto>>> GetUtilisateur()
         {
-            return await _context.Utilisateur.ToListAsync();
+            return await _context.Utilisateur.Select(x => x.ToDto()).ToListAsync();
         }
 
         // GET: api/Utilisateurs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Utilisateur>> GetUtilisateur(Guid id)
+        public async Task<ActionResult<UtilisateurDto>> GetUtilisateur(Guid id)
         {
             var utilisateur = await _context.Utilisateur.FindAsync(id);
 
@@ -39,12 +40,12 @@ namespace SuivProj.Controllers
                 return NotFound();
             }
 
-            return utilisateur;
+            return utilisateur.ToDto();
         }
 
         // PUT: api/Utilisateurs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<IActionResult> PutUtilisateur(Guid id, Utilisateur utilisateur)
         {
             if (id != utilisateur.Id)
@@ -71,18 +72,18 @@ namespace SuivProj.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST:  
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Utilisateur>> PostUtilisateur(Utilisateur utilisateur)
+        /*[HttpPost]
+        public async Task<ActionResult<UtilisateurDto>> PostUtilisateur(Utilisateur utilisateur)
         {
             _context.Utilisateur.Add(utilisateur);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUtilisateur", new { id = utilisateur.Id }, utilisateur);
-        }
+        }*/
 
         // DELETE: api/Utilisateurs/5
         [HttpDelete("{id}")]

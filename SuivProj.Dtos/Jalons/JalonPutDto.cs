@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuivProj.Models.Classes;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace SuivProj.Dtos

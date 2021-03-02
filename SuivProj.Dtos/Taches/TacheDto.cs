@@ -12,7 +12,7 @@ namespace SuivProj.Dtos
         public string Label { get; set; } = String.Empty;
         [MaxLength(1000)]
         public string Desc { get; set; }
-        public List<ExigenceDto> Exigences { get; set; } = new();
+        public List<ExigenceDto> Exigences { get; set; }
         [Required]
         public DateTime DateDebutTheorique { get; set; }
         public DateTime DateDebutReelle { get; set; }
@@ -21,8 +21,10 @@ namespace SuivProj.Dtos
         [Required]
         public float Charge { get; set; }
         public JalonDto Jalon { get; set; }
-        public Guid? JalonId { get; set; }
+        public Guid JalonId { get; set; }
         public ProjetDto Projet { get; set; }
-        public Guid? ProjetId { get; set; }
+        public Guid ProjetId { get; set; }
+        public UtilisateurDto Proprietaire { get; set; }
+        public Guid ProprietaireId { get; set; }
     }
 }

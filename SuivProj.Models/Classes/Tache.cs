@@ -14,7 +14,7 @@ namespace SuivProj.Models.Classes
         public string Label { get; set; } = String.Empty;
         [MaxLength(1000)]
         public string? Desc { get; set; }
-        public List<Exigence> Exigences { get; } = new();
+        public List<Exigence> Exigences { get; set; } = new();
         [Required]
         public DateTime DateDebutTheorique { get; set; }
         public DateTime DateDebutReelle { get; set; }
@@ -26,7 +26,7 @@ namespace SuivProj.Models.Classes
         public Guid? JalonId { get; set; }
         public Projet? Projet { get; set; }
         public Guid? ProjetId { get; set; }
-        public Utilisateur Proprietaire { get; set; } = new();
+        public Utilisateur Proprietaire { get; set; }
         public Guid ProprietaireId { get; set; }
     }
 }

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SuivProj.Models.Classes;
 using SuivProj.Models.DataAccess;
+using SuivProj.Dtos;
 
 namespace SuivProj.Controllers
 {
@@ -23,14 +23,14 @@ namespace SuivProj.Controllers
 
         // GET: api/Exigences
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exigence>>> GetExigence()
+        public async Task<ActionResult<IEnumerable<ExigenceDto>>> GetExigence()
         {
-            return await _context.Exigence.ToListAsync();
+            return await _context.Exigence.Select(x => x.ToDto()).ToListAsync();
         }
 
         // GET: api/Exigences/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Exigence>> GetExigence(Guid id)
+        public async Task<ActionResult<ExigenceDto>> GetExigence(Guid id)
         {
             var exigence = await _context.Exigence.FindAsync(id);
 
@@ -39,23 +39,28 @@ namespace SuivProj.Controllers
                 return NotFound();
             }
 
-            return exigence;
+            return exigence.ToDto();
         }
 
         // PUT: api/Exigences/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExigence(Guid id, Exigence exigence)
+        public async Task<IActionResult> PutExigence(Guid id, ExigencePutDto ExigencePutDto)
         {
-            if (id != exigence.Id)
+            var exigence = await _context.Exigence.FindAsync(id);
+
+            if (exigence == null)
             {
                 return BadRequest();
             }
-
+            
             _context.Entry(exigence).State = EntityState.Modified;
 
             try
             {
+                exigence.Description = ExigencePutDto.Description;
+                exigence.IsFonctionnel = ExigencePutDto.IsFonctionnel;
+                exigence.nonFonctionnel = ExigencePutDto.nonFonctionnel;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -76,12 +81,28 @@ namespace SuivProj.Controllers
         // POST: api/Exigences
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Exigence>> PostExigence(Exigence exigence)
+        public async Task<ActionResult<ExigenceDto>> PostExigence(ExigencePostDto ExigencePostDto)
         {
+            var _Projet = await _context.Projet.FindAsync(ExigencePostDto.ProjetId);
+
+            if (_Projet == null)
+            {
+                return NotFound("Projet non trouvé.");
+            }
+
+            Exigence exigence = new()
+            {
+                Description = ExigencePostDto.Description,
+                IsFonctionnel = ExigencePostDto.IsFonctionnel,
+                nonFonctionnel = ExigencePostDto.nonFonctionnel,
+                Projet = _Projet,
+                ProjetId = ExigencePostDto.ProjetId
+            };
+
             _context.Exigence.Add(exigence);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExigence", new { id = exigence.Id }, exigence);
+            return CreatedAtAction("GetExigence", new { id = exigence.Id }, exigence.ToDto());
         }
 
         // DELETE: api/Exigences/5

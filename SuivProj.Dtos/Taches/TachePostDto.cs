@@ -11,7 +11,7 @@ namespace SuivProj.Dtos
         public string Label { get; set; } = String.Empty;
         [MaxLength(1000)]
         public string Desc { get; set; } = String.Empty;
-        public List<Guid> Exigences { get; } = new();
+        public List<Guid> Exigences { get; set; }
         [Required]
         public DateTime DateDebutTheorique { get; set; }
         [Required]
@@ -19,5 +19,7 @@ namespace SuivProj.Dtos
         public Guid JalonId { get; set; }
         [Required]
         public Guid ProjetId { get; set; }
+        [Required]
+        public Guid ProprietaireId { get; set; }
     }
 }

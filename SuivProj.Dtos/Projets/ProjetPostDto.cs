@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SuivProj.Dtos.Projets
+namespace SuivProj.Dtos
 {
     public class ProjetPostDto
     {
         public string Nom { get; set; }
-        public Guid ChefProjet { get; set; }
+        public Guid ChefProjetId { get; set; }
     }
 }

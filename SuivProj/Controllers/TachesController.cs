@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SuivProj.Dtos;
 using SuivProj.Models.Classes;
 using SuivProj.Models.DataAccess;
 
@@ -23,14 +24,14 @@ namespace SuivProj.Controllers
 
         // GET: api/Taches
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tache>>> GetTache()
+        public async Task<ActionResult<IEnumerable<TacheDto>>> GetTache()
         {
-            return await _context.Tache.ToListAsync();
+            return await _context.Tache.Select(x => x.ToDto()).ToListAsync();
         }
 
         // GET: api/Taches/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tache>> GetTache(Guid id)
+        public async Task<ActionResult<TacheDto>> GetTache(Guid id)
         {
             var tache = await _context.Tache.FindAsync(id);
 
@@ -39,23 +40,44 @@ namespace SuivProj.Controllers
                 return NotFound();
             }
 
-            return tache;
+            return tache.ToDto();
         }
 
         // PUT: api/Taches/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTache(Guid id, Tache tache)
+        public async Task<IActionResult> PutTache(Guid id, TachePutDto tachePutDto)
         {
-            if (id != tache.Id)
+            var tache = await _context.Tache.FindAsync(id);
+            var jalon = await _context.Jalon.FindAsync(tachePutDto.JalonId);
+            var proprietaire = await _context.Utilisateur.FindAsync(tachePutDto.ProprietaireId);
+
+            var exigences = new List<Exigence>();
+
+            foreach(var exigenceId in tachePutDto.Exigences)
+            {
+                var exigence = await _context.Exigence.FindAsync(exigenceId);
+                exigences.Add(exigence);
+            }
+
+            if (tache == null)
             {
                 return BadRequest();
             }
 
             _context.Entry(tache).State = EntityState.Modified;
-
             try
             {
+                tache.Label = tachePutDto.Label;
+                tache.Desc = tachePutDto.Desc;
+                tache.Charge = tachePutDto.Charge;
+                tache.DateDebutTheorique = tachePutDto.DateDebutTheorique;
+                tache.Exigences = exigences;
+                tache.Jalon = jalon;
+                tache.JalonId = jalon.Id;
+                tache.Proprietaire = proprietaire;
+                tache.ProprietaireId = tachePutDto.ProprietaireId;
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -76,12 +98,44 @@ namespace SuivProj.Controllers
         // POST: api/Taches
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Tache>> PostTache(Tache tache)
+        public async Task<ActionResult<TacheDto>> PostTache(TachePostDto tachePostDto)
         {
+            var jalon = await _context.Jalon.FindAsync(tachePostDto.JalonId);
+            var projet = await _context.Projet.FindAsync(tachePostDto.ProjetId);
+            var proprietaire = await _context.Utilisateur.FindAsync(tachePostDto.ProprietaireId);
+
+            var exigences = new List<Exigence>();
+
+            foreach(var exigenceId in tachePostDto.Exigences)
+            {
+                var exigence = await _context.Exigence.FindAsync(exigenceId);
+                exigences.Add(exigence);
+            }
+
+            if(projet == null)
+            {
+                return BadRequest();
+            }
+
+            Tache tache = new()
+            {
+                Label = tachePostDto.Label,
+                Desc = tachePostDto.Desc,
+                Charge = tachePostDto.Charge,
+                DateDebutTheorique = tachePostDto.DateDebutTheorique,
+                Projet = projet,
+                ProjetId = tachePostDto.ProjetId,
+                Jalon = jalon,
+                JalonId = tachePostDto.JalonId,
+                Proprietaire = proprietaire,
+                ProprietaireId = tachePostDto.ProprietaireId,
+                Exigences = exigences,
+            };
+
             _context.Tache.Add(tache);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTache", new { id = tache.Id }, tache);
+            return CreatedAtAction("GetTache", new { id = tache.Id }, tache.ToDto());
         }
 
         // DELETE: api/Taches/5

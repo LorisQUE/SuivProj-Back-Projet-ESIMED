@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SuivProj.Dtos;
 using SuivProj.Models.Classes;
 using SuivProj.Models.DataAccess;
 
@@ -23,14 +24,14 @@ namespace SuivProj.Controllers
 
         // GET: api/Jalons
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Jalon>>> GetJalon()
+        public async Task<ActionResult<IEnumerable<JalonDto>>> GetJalon()
         {
-            return await _context.Jalon.ToListAsync();
+            return await _context.Jalon.Select(x => x.ToDto()).ToListAsync();
         }
 
         // GET: api/Jalons/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Jalon>> GetJalon(Guid id)
+        public async Task<ActionResult<JalonDto>> GetJalon(Guid id)
         {
             var jalon = await _context.Jalon.FindAsync(id);
 
@@ -39,23 +40,33 @@ namespace SuivProj.Controllers
                 return NotFound();
             }
 
-            return jalon;
+            return jalon.ToDto();
         }
 
         // PUT: api/Jalons/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutJalon(Guid id, Jalon jalon)
+        public async Task<IActionResult> PutJalon(Guid id, JalonPutDto jalonDtoPut)
         {
-            if (id != jalon.Id)
+            var Jalon = await _context.Jalon.FindAsync(id);
+            var Responsable = await _context.Utilisateur.FindAsync(Jalon.ResponsableId);
+            if (Jalon == null)
             {
                 return BadRequest();
             }
+            else if (Responsable == null)
+            {
+                return NotFound("Responsable non trouvé.");
+            }
 
-            _context.Entry(jalon).State = EntityState.Modified;
+            _context.Entry(Jalon).State = EntityState.Modified;
 
             try
             {
+                Jalon.Libelle = jalonDtoPut.Libelle;
+                Jalon.Progression = jalonDtoPut.Progression;
+                Jalon.ResponsableId = jalonDtoPut.ResponsableId;
+                Jalon.Responsable = Responsable;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -76,12 +87,31 @@ namespace SuivProj.Controllers
         // POST: api/Jalons
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Jalon>> PostJalon(Jalon jalon)
+        public async Task<ActionResult<JalonDto>> PostJalon(JalonPostDto jalonPostDto)
         {
+            var Projet = await _context.Projet.FindAsync(jalonPostDto.ProjetId);
+            var Responsable = await _context.Utilisateur.FindAsync(jalonPostDto.ResponsableId);
+            if (Projet == null)
+            {
+                return NotFound("Projet non trouvé.");
+            }
+            else if(Responsable == null)
+            {
+                return NotFound("Utilisateur non trouvé.");
+            }
+
+            Jalon jalon = new()
+            {
+                Libelle = jalonPostDto.Libelle,
+                
+                Projet = Projet,
+                ProjetId = jalonPostDto.ProjetId
+            };
+
             _context.Jalon.Add(jalon);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetJalon", new { id = jalon.Id }, jalon);
+            return CreatedAtAction("GetJalon", new { id = jalon.Id }, jalon.ToDto());
         }
 
         // DELETE: api/Jalons/5

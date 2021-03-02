@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace SuivProj.Dtos.Projets
+namespace SuivProj.Dtos
 {
     public class ProjetPutDto
     {
         public string Nom { get; set; }
-        public Guid ChefProjet { get; set; }
+        public Guid ChefProjetId { get; set; }
     }
 }

@@ -17,5 +17,12 @@ namespace SuivProj.Models.DataAccess
         public DbSet<Exigence> Exigence { get; set; }
         public DbSet<Jalon> Jalon { get; set; }
         public DbSet<Tache> Tache { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Utilisateur>()
+                .HasIndex(u => u.Trigramme)
+                .IsUnique();
+        }
     }
 }

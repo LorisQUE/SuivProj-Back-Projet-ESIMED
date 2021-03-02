@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SuivProj.Dtos
 {
-    class ProjetDto
+    public class ProjetDto
     {
         public Guid Id { get; init; }
         public string Nom { get; set; }

@@ -2,7 +2,7 @@
 
 namespace SuivProj.Dtos.Projets
 {
-    class ProjetPutDto
+    public class ProjetPutDto
     {
         public string Nom { get; set; }
         public Guid ChefProjet { get; set; }

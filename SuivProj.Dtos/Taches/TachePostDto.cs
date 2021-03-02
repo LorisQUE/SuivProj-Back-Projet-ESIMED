@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SuivProj.Dtos
 {
-    class TachePostDto
+    public class TachePostDto
     {
         [Required]
         [MaxLength(50)]

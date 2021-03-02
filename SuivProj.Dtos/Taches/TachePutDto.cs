@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SuivProj.Dtos
 {
-    class TachePutDto
+    public class TachePutDto
     {
         public string Label { get; set; } = String.Empty;
         public string Desc { get; set; } = String.Empty;

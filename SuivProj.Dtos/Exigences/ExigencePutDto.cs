@@ -2,7 +2,7 @@
 
 namespace SuivProj.Dtos
 {
-    class ExigencePutDto
+    public class ExigencePutDto
     {
         public string Description { get; set; } = String.Empty;
         public bool IsFonctionnel { get; set; }

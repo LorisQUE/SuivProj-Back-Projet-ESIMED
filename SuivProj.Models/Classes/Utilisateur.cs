@@ -11,12 +11,15 @@ namespace SuivProj.Models.Classes
         public Guid Id { get; init; }
         [Required]
         [MaxLength(3)]
-        public string Trigramme { get; set; }
+        public string Trigramme { get; set; } = String.Empty;
         [Required]
-        public string Prenom { get; set; }
+        [MaxLength(100)]
+        public string Prenom { get; set; } = String.Empty;
         [Required]
-        public string Nom { get; set; }
+        [MaxLength(100)]
+        public string Nom { get; set; } = String.Empty;
         [Required]
-        public string Mail { get; set; }
+        [MaxLength(100)]
+        public string Mail { get; set; } = String.Empty;
     }
 }

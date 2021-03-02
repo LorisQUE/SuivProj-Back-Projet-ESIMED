@@ -10,9 +10,11 @@ namespace SuivProj.Models.Classes
     {
         public Guid Id { get; init; }
         [Required]
-        public string Label { get; set; }
-        public string Desc { get; set; }
-        public List<Exigence> Exigences { get; }
+        [MaxLength(50)]
+        public string Label { get; set; } = String.Empty;
+        [MaxLength(1000)]
+        public string? Desc { get; set; }
+        public List<Exigence> Exigences { get; } = new();
         [Required]
         public DateTime DateDebutTheorique { get; set; }
         public DateTime DateDebutReelle { get; set; }
@@ -20,7 +22,11 @@ namespace SuivProj.Models.Classes
         public DateTime DateFinReelle { get; set; }
         [Required]
         public float Charge { get; set; }
-        public Jalon Jalon { get; set; }
-        public Projet Projet { get; set; }
+        public Jalon? Jalon { get; set; }
+        public Guid? JalonId { get; set; }
+        public Projet? Projet { get; set; }
+        public Guid? ProjetId { get; set; }
+        public Utilisateur Proprietaire { get; set; } = new();
+        public Guid ProprietaireId { get; set; }
     }
 }

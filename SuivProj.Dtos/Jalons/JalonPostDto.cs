@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SuivProj.Dtos
 {
-    class JalonPostDto
+    public class JalonPostDto
     {
         [Required]
         public string Libelle { get; set; } = String.Empty;
         [Required]
-        public Guid? ResponsableId { get; set; }
+        public Guid ResponsableId { get; set; }
         [Required]
         public Guid ProjetId { get; set; }
     }

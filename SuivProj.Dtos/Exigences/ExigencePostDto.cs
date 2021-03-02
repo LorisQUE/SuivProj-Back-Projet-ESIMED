@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SuivProj.Dtos
 {
-    class ExigencePostDto
+    public class ExigencePostDto
     {
         [Required]
         public string Description { get; set; } = String.Empty;

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SuivProj.Dtos
 {
-    class TacheDto
+    public class TacheDto
     {
         public Guid Id { get; init; }
         [Required]
@@ -12,7 +12,7 @@ namespace SuivProj.Dtos
         public string Label { get; set; } = String.Empty;
         [MaxLength(1000)]
         public string Desc { get; set; }
-        public List<ExigenceDto> Exigences { get; } = new();
+        public List<ExigenceDto> Exigences { get; set; } = new();
         [Required]
         public DateTime DateDebutTheorique { get; set; }
         public DateTime DateDebutReelle { get; set; }

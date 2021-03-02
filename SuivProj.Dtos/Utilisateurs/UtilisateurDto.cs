@@ -2,8 +2,9 @@
 
 namespace SuivProj.Dtos
 {
-    class UtilisateurDto
+    public class UtilisateurDto
     {
+        public Guid Id { get; set; }
         public string Trigramme { get; set; } = String.Empty;
         public string Prenom { get; set; } = String.Empty;
         public string Nom { get; set; } = String.Empty;

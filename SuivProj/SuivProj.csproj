@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SuivProj.Dtos\SuivProj.Dtos.csproj" />
     <ProjectReference Include="..\SuivProj.Models\SuivProj.Models.csproj" />
   </ItemGroup>
 

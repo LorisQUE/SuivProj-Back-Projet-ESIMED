@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SuivProj.Dtos
 {
-    class ExigenceDto
+    public class ExigenceDto
     {
         public Guid Id { get; init; }
         [Required]
@@ -12,7 +12,7 @@ namespace SuivProj.Dtos
         [Required]
         public bool IsFonctionnel { get; set; }
         public string nonFonctionnel { get; set; } = String.Empty;
-        public List<TacheDto> Taches { get; } = new();
+        public List<TacheDto> Taches { get; set; } = new();
 
         [Required]
         public ProjetDto Projet { get; set; }

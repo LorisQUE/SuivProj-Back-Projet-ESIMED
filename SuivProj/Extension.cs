@@ -18,7 +18,6 @@ namespace SuivProj
                 IsFonctionnel = pExigence.IsFonctionnel,
                 nonFonctionnel = pExigence.nonFonctionnel,
                 Taches = pExigence.Taches.Select(x => x.ToDto()).ToList(),
-                Projet = pExigence.Projet.ToDto(),
                 ProjetId = (Guid)pExigence.ProjetId
             };
         }
@@ -28,6 +27,7 @@ namespace SuivProj
             {
                 Id = pProjet.Id,
                 Nom = pProjet.Nom,
+                ChefProjetId = (Guid)pProjet.ChefProjetId,
                 ChefProjet = pProjet.ChefProjet.ToDto(),
                 Exigences = pProjet.Exigences.Select(x => x.ToDto()).ToList(),
                 Taches = pProjet.Taches.Select(x => x.ToDto()).ToList(),
@@ -50,9 +50,7 @@ namespace SuivProj
                 DateFinTheorique = pTache.DateFinTheorique,
                 DateFinReelle = pTache.DateFinReelle,
                 Charge = pTache.Charge,
-                Jalon = pTache.Jalon.ToDto(),
                 JalonId = (Guid)pTache.JalonId,
-                Projet = pTache.Projet.ToDto(),
                 ProjetId = (Guid)pTache.ProjetId
             };
         }
@@ -66,10 +64,8 @@ namespace SuivProj
                 DateLivraisonPrevue = (DateTime)pJalon.DateLivraisonPrevue,
                 DateLivraisonReelle = (DateTime)pJalon.DateLivraisonReelle,
                 DateFinTheoriqueCalculer = (DateTime)pJalon.DateFinTheoriqueCalculer,
-                Responsable = pJalon.Responsable.ToDto(),
                 ResponsableId = (Guid)pJalon.ResponsableId,
-                Projet = pJalon.Projet.ToDto(),
-                ProjetId = pJalon.ProjetId,
+                ProjetId = (Guid)pJalon.ProjetId,
                 Progression = pJalon.Progression
             };
         }

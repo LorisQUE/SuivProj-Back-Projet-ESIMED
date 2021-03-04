@@ -22,11 +22,8 @@ namespace SuivProj.Models.Classes
         public DateTime DateFinReelle { get; set; }
         [Required]
         public float Charge { get; set; }
-        public Jalon? Jalon { get; set; }
         public Guid? JalonId { get; set; }
-        public Projet? Projet { get; set; }
         public Guid? ProjetId { get; set; }
-        public Utilisateur Proprietaire { get; set; }
         public Guid ProprietaireId { get; set; }
     }
 }

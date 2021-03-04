@@ -26,14 +26,14 @@ namespace SuivProj.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProjetDto>>> GetProjet()
         {
-            return await _context.Projet.Select(x => x.ToDto()).ToListAsync();
+            return await _context.Projet.Include(p => p.ChefProjet).Include(p => p.Exigences).Select(x => x.ToDto()).ToListAsync();
         }
 
         // GET: api/Projets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjetDto>> GetProjet(Guid id)
         {
-            var projet = await _context.Projet.FindAsync(id);
+            var projet = await _context.Projet.Where(p => p.Id == id).Include(p => p.ChefProjet).Include(p => p.Exigences).FirstOrDefaultAsync();
 
             if (projet == null)
             {
@@ -87,6 +87,12 @@ namespace SuivProj.Controllers
         public async Task<ActionResult<ProjetDto>> PostProjet(ProjetPostDto projetPostDto)
         {
             var ChefProjet = await _context.Utilisateur.FindAsync(projetPostDto.ChefProjetId);
+
+            if(ChefProjet == null)
+            {
+                return NotFound("Chef de projet non trouvé.");
+            }
+
             Projet projet = new()
             {
                 Nom = projetPostDto.Nom,

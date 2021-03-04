@@ -15,11 +15,9 @@ namespace SuivProj.Models.Classes
         public DateTime? DateLivraisonPrevue { get; set; }
         public DateTime? DateLivraisonReelle { get; set; }
         [Required]
-        public Utilisateur? Responsable { get; set; }
         public Guid? ResponsableId { get; set; }
         public DateTime? DateFinTheoriqueCalculer { get; set; }
         [Required]
-        public Projet? Projet { get; set; }
         public Guid ProjetId { get; set; }
         public Progression Progression { get; set; } = Progression.Creation;
 

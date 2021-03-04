@@ -15,9 +15,6 @@ namespace SuivProj.Models.Classes
         public bool IsFonctionnel { get; set; }
         public string nonFonctionnel { get; set; } = String.Empty;
         public List<Tache> Taches { get; } = new();
-
-        [Required]
-        public Projet? Projet { get; set; }
         public Guid? ProjetId { get; set; }
     }
 }

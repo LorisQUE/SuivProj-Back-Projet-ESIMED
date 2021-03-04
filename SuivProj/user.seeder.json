@@ -3,12 +3,30 @@
     "Prenom": "Loris",
     "Nom": "Quetglas",
     "Trigramme": "LQU",
-    "Mail":  "Quetglas.Loris@gmail.com"
+    "Mail": "LorisQuetglas@gmail.com"
   },
   {
     "Prenom": "Said",
     "Nom": "Waskar",
     "Trigramme": "SWA",
-    "Mail":  "DZenForce@gmail.com"
+    "Mail": "SaidWaskar@gmail.com"
+  },
+  {
+    "Prenom": "Kais",
+    "Nom": "Boulakhlas",
+    "Trigramme": "KBO",
+    "Mail": "KaisBou@gmail.com"
+  },
+  {
+    "Prenom": "Charles",
+    "Nom": "Pinoch",
+    "Trigramme": "CPI",
+    "Mail": "CPI@gmail.com"
+  },
+  {
+    "Prenom": "Jean-Pierre",
+    "Nom": "Popeye",
+    "Trigramme": "JPP",
+    "Mail": "JeanPopeye@gmail.com"
   }
 ]

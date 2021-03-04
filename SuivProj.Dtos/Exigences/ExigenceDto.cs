@@ -14,8 +14,6 @@ namespace SuivProj.Dtos
         public string nonFonctionnel { get; set; } = String.Empty;
         public List<TacheDto> Taches { get; set; } = new();
 
-        [Required]
-        public ProjetDto Projet { get; set; }
         public Guid ProjetId { get; set; }
     }
 }

@@ -26,14 +26,14 @@ namespace SuivProj.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<JalonDto>>> GetJalon()
         {
-            return await _context.Jalon.Select(x => x.ToDto()).ToListAsync();
+            return await _context.Jalon.Include(j => j.Taches).Select(x => x.ToDto()).ToListAsync();
         }
 
         // GET: api/Jalons/5
         [HttpGet("{id}")]
         public async Task<ActionResult<JalonDto>> GetJalon(Guid id)
         {
-            var jalon = await _context.Jalon.FindAsync(id);
+            var jalon = await _context.Jalon.Where(j => j.Id == id).Include(j => j.Taches).FirstOrDefaultAsync();
 
             if (jalon == null)
             {
@@ -66,7 +66,6 @@ namespace SuivProj.Controllers
                 Jalon.Libelle = jalonDtoPut.Libelle;
                 Jalon.Progression = jalonDtoPut.Progression;
                 Jalon.ResponsableId = jalonDtoPut.ResponsableId;
-                Jalon.Responsable = Responsable;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -103,8 +102,7 @@ namespace SuivProj.Controllers
             Jalon jalon = new()
             {
                 Libelle = jalonPostDto.Libelle,
-                
-                Projet = Projet,
+                ResponsableId = jalonPostDto.ResponsableId,
                 ProjetId = jalonPostDto.ProjetId
             };
 

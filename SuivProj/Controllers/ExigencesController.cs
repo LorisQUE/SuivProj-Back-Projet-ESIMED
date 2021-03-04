@@ -28,11 +28,18 @@ namespace SuivProj.Controllers
             return await _context.Exigence.Select(x => x.ToDto()).ToListAsync();
         }
 
+        // GET: api/Exigences/Proj/5
+        [HttpGet("Proj/{id}")]
+        public async Task<ActionResult<IEnumerable<ExigenceDto>>> GetExigenceByProj(Guid id)
+        {
+            return await _context.Exigence.Where(x => x.ProjetId == id).Select(x => x.ToDto()).ToListAsync();
+        }
+
         // GET: api/Exigences/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ExigenceDto>> GetExigence(Guid id)
         {
-            var exigence = await _context.Exigence.FindAsync(id);
+            var exigence = await _context.Exigence.Where(e => e.Id == id).FirstOrDefaultAsync();
 
             if (exigence == null)
             {
@@ -83,19 +90,11 @@ namespace SuivProj.Controllers
         [HttpPost]
         public async Task<ActionResult<ExigenceDto>> PostExigence(ExigencePostDto ExigencePostDto)
         {
-            var _Projet = await _context.Projet.FindAsync(ExigencePostDto.ProjetId);
-
-            if (_Projet == null)
-            {
-                return NotFound("Projet non trouvé.");
-            }
-
             Exigence exigence = new()
             {
                 Description = ExigencePostDto.Description,
                 IsFonctionnel = ExigencePostDto.IsFonctionnel,
                 nonFonctionnel = ExigencePostDto.nonFonctionnel,
-                Projet = _Projet,
                 ProjetId = ExigencePostDto.ProjetId
             };
 

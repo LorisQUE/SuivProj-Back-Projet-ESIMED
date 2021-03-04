@@ -20,11 +20,8 @@ namespace SuivProj.Dtos
         public DateTime DateFinReelle { get; set; }
         [Required]
         public float Charge { get; set; }
-        public JalonDto Jalon { get; set; }
         public Guid JalonId { get; set; }
-        public ProjetDto Projet { get; set; }
         public Guid ProjetId { get; set; }
-        public UtilisateurDto Proprietaire { get; set; }
         public Guid ProprietaireId { get; set; }
     }
 }

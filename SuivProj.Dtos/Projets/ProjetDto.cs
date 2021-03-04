@@ -7,6 +7,7 @@ namespace SuivProj.Dtos
     {
         public Guid Id { get; init; }
         public string Nom { get; set; }
+        public Guid ChefProjetId { get; set; }
         public UtilisateurDto ChefProjet { get; set; }
         public List<ExigenceDto> Exigences { get; set; }
         public List<TacheDto> Taches { get; set; }

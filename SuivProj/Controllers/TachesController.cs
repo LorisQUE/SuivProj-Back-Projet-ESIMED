@@ -26,7 +26,7 @@ namespace SuivProj.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TacheDto>>> GetTache()
         {
-            return await _context.Tache.Select(x => x.ToDto()).ToListAsync();
+            return await _context.Tache.Include(t => t.Exigences).Select(t => t.ToDto()).ToListAsync();
         }
 
         // GET: api/Taches/5
@@ -73,9 +73,7 @@ namespace SuivProj.Controllers
                 tache.Charge = tachePutDto.Charge;
                 tache.DateDebutTheorique = tachePutDto.DateDebutTheorique;
                 tache.Exigences = exigences;
-                tache.Jalon = jalon;
                 tache.JalonId = jalon.Id;
-                tache.Proprietaire = proprietaire;
                 tache.ProprietaireId = tachePutDto.ProprietaireId;
 
                 await _context.SaveChangesAsync();
@@ -123,11 +121,8 @@ namespace SuivProj.Controllers
                 Desc = tachePostDto.Desc,
                 Charge = tachePostDto.Charge,
                 DateDebutTheorique = tachePostDto.DateDebutTheorique,
-                Projet = projet,
                 ProjetId = tachePostDto.ProjetId,
-                Jalon = jalon,
                 JalonId = tachePostDto.JalonId,
-                Proprietaire = proprietaire,
                 ProprietaireId = tachePostDto.ProprietaireId,
                 Exigences = exigences,
             };

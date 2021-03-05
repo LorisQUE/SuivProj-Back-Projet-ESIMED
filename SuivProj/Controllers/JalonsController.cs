@@ -26,7 +26,14 @@ namespace SuivProj.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<JalonDto>>> GetJalon()
         {
-            return await _context.Jalon.Include(j => j.Taches).Select(x => x.ToDto()).ToListAsync();
+            return await _context.Jalon.Select(x => x.ToDto()).ToListAsync();
+        }
+
+        // GET: api/Jalons/Proj/5
+        [HttpGet("Proj/{id}")]
+        public async Task<ActionResult<IEnumerable<JalonDto>>> GetJalonsByProj(Guid id)
+        {
+            return await _context.Jalon.Where(j => j.ProjetId == id).Select(j => j.ToDto()).ToListAsync();
         }
 
         // GET: api/Jalons/5

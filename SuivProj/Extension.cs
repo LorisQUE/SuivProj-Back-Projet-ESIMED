@@ -61,11 +61,11 @@ namespace SuivProj
                 Id = pJalon.Id,
                 Libelle = pJalon.Libelle,
                 Taches = pJalon.Taches.Select(x => x.ToDto()).ToList(),
-                DateLivraisonPrevue = (DateTime)pJalon.DateLivraisonPrevue,
-                DateLivraisonReelle = (DateTime)pJalon.DateLivraisonReelle,
-                DateFinTheoriqueCalculer = (DateTime)pJalon.DateFinTheoriqueCalculer,
-                ResponsableId = (Guid)pJalon.ResponsableId,
-                ProjetId = (Guid)pJalon.ProjetId,
+                DateLivraisonPrevue = pJalon.DateLivraisonPrevue,
+                DateLivraisonReelle = pJalon.DateLivraisonReelle,
+                DateFinTheoriqueCalculer = pJalon.DateFinTheoriqueCalculer,
+                ResponsableId = pJalon.ResponsableId,
+                ProjetId = pJalon.ProjetId,
                 Progression = pJalon.Progression
             };
         }

@@ -29,6 +29,13 @@ namespace SuivProj.Controllers
             return await _context.Tache.Include(t => t.Exigences).Select(t => t.ToDto()).ToListAsync();
         }
 
+        // GET: api/Taches/Proj/5
+        [HttpGet("Proj/{id}")]
+        public async Task<ActionResult<IEnumerable<TacheDto>>> GetTachesByProj(Guid id)
+        {
+            return await _context.Tache.Include(t => t.Exigences).Where(t => t.ProjetId == id).Select(t => t.ToDto()).ToListAsync();
+        }
+
         // GET: api/Taches/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TacheDto>> GetTache(Guid id)

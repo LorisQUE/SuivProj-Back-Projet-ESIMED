@@ -12,11 +12,11 @@ namespace SuivProj.Models.Classes
         [Required]
         public string Libelle { get; set; } = String.Empty;
         public List<Tache> Taches { get; set; } = new();
-        public DateTime? DateLivraisonPrevue { get; set; }
-        public DateTime? DateLivraisonReelle { get; set; }
+        public DateTime? DateLivraisonPrevue { get; set; } = new DateTime();
+        public DateTime? DateLivraisonReelle { get; set; } = new DateTime();
         [Required]
-        public Guid? ResponsableId { get; set; }
-        public DateTime? DateFinTheoriqueCalculer { get; set; }
+        public Guid ResponsableId { get; set; }
+        public DateTime? DateFinTheoriqueCalculer { get; set; } = new DateTime();
         [Required]
         public Guid ProjetId { get; set; }
         public Progression Progression { get; set; } = Progression.Creation;

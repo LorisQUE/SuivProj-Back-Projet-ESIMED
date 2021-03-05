@@ -11,9 +11,9 @@ namespace SuivProj.Dtos
         [Required]
         public string Libelle { get; set; } = String.Empty;
         public List<TacheDto> Taches { get; set; } = new();
-        public DateTime DateLivraisonPrevue { get; set; } = new DateTime();
-        public DateTime DateLivraisonReelle { get; set; } = new DateTime();
-        public DateTime DateFinTheoriqueCalculer { get; set; } = new DateTime();
+        public DateTime? DateLivraisonPrevue { get; set; }
+        public DateTime? DateLivraisonReelle { get; set; }
+        public DateTime? DateFinTheoriqueCalculer { get; set; }
         [Required]
         public Guid ResponsableId { get; set; }
         [Required]

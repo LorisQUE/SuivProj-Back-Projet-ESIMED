@@ -26,14 +26,14 @@ namespace SuivProj.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProjetDto>>> GetProjet()
         {
-            return await _context.Projet.Include(p => p.ChefProjet).Include(p => p.Exigences).Select(x => x.ToDto()).ToListAsync();
+            return await _context.Projet.Include(p => p.ChefProjet).Include(p => p.Exigences).Include(p => p.Jalons).Select(x => x.ToDto()).ToListAsync();
         }
 
         // GET: api/Projets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjetDto>> GetProjet(Guid id)
         {
-            var projet = await _context.Projet.Where(p => p.Id == id).Include(p => p.ChefProjet).Include(p => p.Exigences).FirstOrDefaultAsync();
+            var projet = await _context.Projet.Where(p => p.Id == id).Include(p => p.ChefProjet).Include(p => p.Exigences).Include(p => p.Jalons).FirstOrDefaultAsync();
 
             if (projet == null)
             {
